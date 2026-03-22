@@ -1,0 +1,3 @@
+# .htaccess básico
+RewriteEngine On
+RewriteRule ^(.*)$ $1 [L]
