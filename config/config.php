@@ -1,27 +1,20 @@
 <?php
 
-// Definindo a URL do aplicativo (base URL)
-define('BASE_URL', 'http://neofleet.com.br');  // Altere se necessário
+class Database {
+    private $host = 'localhost';
+    private $db_name = 'and28477_neofleet'; // Certifique-se de que o nome do banco de dados está correto
+    private $username = 'and28477_neofleet_user'; // Nome do usuário MySQL
+    private $password = 'W)?Ey=~hel.0efK5P$'; // Nova senha
+    public $conn;
 
-// Configuração do banco de dados MySQL
-define('DB_HOST', 'localhost');               // Host do MySQL, geralmente 'localhost'
-define('DB_NAME', 'and28477_neofleet');        // Nome do banco de dados
-define('DB_USER', 'and28477_neofleet_user');   // Nome do usuário do MySQL
-define('DB_PASS', 'M9{l+{QJWftM');           // Substitua por sua senha do MySQL
-
-// Conexão com o banco de dados
-try {
-    $pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erro ao conectar ao banco de dados: " . $e->getMessage());
+    public function getConnection() {
+        $this->conn = null;
+        try {
+            $this->conn = new PDO("mysql:host={$this->host};dbname={$this->db_name}", $this->username, $this->password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $exception) {
+            echo "Erro de conexão: " . $exception->getMessage();
+        }
+        return $this->conn;
+    }
 }
-
-// Outros dados de configuração
-define('SITE_NAME', 'NeoFleet');
-define('SITE_EMAIL', 'contato@neofleet.com.br');
-
-// Caminho absoluto para o diretório raiz (public_html/neofleet.com.br)
-define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . '/neofleet.com.br');
-
-?>
